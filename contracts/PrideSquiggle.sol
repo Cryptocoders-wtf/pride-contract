@@ -100,7 +100,7 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
 
   function _generateImage(uint256 _tokenId, uint256 _length, string[6] memory _colors) internal pure returns(bytes memory) {
     bytes memory path = _randomPath(_tokenId);
-    bytes memory pack = abi.encodePacked('<rect width="1024" height="1024" fill="#71BCE1" />\n');
+    bytes memory pack = abi.encodePacked('<rect width="4096" height="1024" fill="#71BCE1" />\n');
     uint256 i;
     for (i=0; i<_length; i++) {
       pack = abi.encodePacked(
@@ -118,7 +118,7 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
    */
   function _generateSVG(uint256 tokenId) internal pure returns (bytes memory) {
     bytes memory pack = abi.encodePacked(
-      '<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">\n'
+      '<svg width="4096" height="1024" viewBox="0 0 4096 1024" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">\n'
       );
     string[6] memory classingRainbow = [
       "#E50000", "#FF8D00", "#FFEE00", "#028121", "#004CFF", "#770088"
@@ -169,12 +169,12 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
   function _randomPath(uint256 tokenId) internal pure returns (bytes memory) {
     uint256 seed = _random(tokenId);
     uint i;
-    uint len = 10;
-    Position[10] memory pos;
+    uint len = 40;
+    Position[40] memory pos;
     uint256 last = 100;
-    uint256 delta = uint256(1024) * 8 / 10 / (len-1);
+    uint256 delta = uint256(4096) * 95 / 100 / (len-1);
     uint256 diff = delta / 3;
-    uint256 offset = (1024 - delta * (len-1)) / 2 - diff / 2;
+    uint256 offset = (4096 - delta * (len-1)) / 2 - diff / 2;
     uint256 height = 1024 - 128;
     for (i = 0 ; i < len; i++) {
       uint256 next;
@@ -185,7 +185,7 @@ contract PrideSquiggle is INounsToken, Ownable, ERC721Enumerable {
       } else {
         next = last - seed % (last * 8 / 10);
       }
-      pos[i].y = next;
+      pos[i].y = next-60;
       last = next;
       seed = _random(seed);
     }

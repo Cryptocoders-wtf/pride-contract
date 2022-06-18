@@ -14,24 +14,24 @@ before(async () => {
 describe("Baisc", function () {
   it("generateSVG", async function () {
     const result = await contract.generateSVG(3);
-    console.log(result);
+    //console.log(result);
     expect(result.startsWith("<svg width")).equal(true);    
   });
   it("SetLimit", async function () {
     await contract.setLimit(3);
     const data = await contract.limit();
-    console.log(data);
+    //console.log(data);
     expect(data).equal(3);
   });
   it("SetDesc", async function () {
     await contract.setDescription("Test!");
     const desc = await contract.description();
-    console.log(desc);
+    //console.log(desc);
     expect(desc).equal("Test!");
   });
   it("Mint", async function () {
     const transaction = await contract.mint();
-    console.log(transaction);
+    //console.log(transaction);
     expect(transaction.value).equal(0);
   });
   it("Mint2nd", async function () {
@@ -39,15 +39,15 @@ describe("Baisc", function () {
       // mint twice should cause error
       await contract.mint()
     } catch(e){
-      console.log(e);
-     return; 
+      //console.log(e);
+      return; 
     }
     expect.fail("should happen exception")
   });
   it("tokenURI", async function () {
     const result = await contract.tokenURI(0);
     const resJson = JSON.parse(Buffer.from(result.substr('data:application/json;base64,'.length) , "base64").toString());
-    console.log(resJson);
+    //console.log(resJson);
     expect(resJson.image.startsWith("data:image/svg+xml;base64,")).equal(true);    
   });
 });
